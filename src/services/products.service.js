@@ -51,7 +51,8 @@ class productService {
 
   static async getByCat(id) {
     try {
-      const result = await products.findAll({ where: { category_id: id },
+      const result = await products.findAll({
+        where: { category_id: id },
         include: [
           {
             model: categories,
@@ -62,7 +63,8 @@ class productService {
             model: images,
             as: "images",
           },
-        ], });
+        ],
+      });
       return result;
     } catch (error) {
       throw error;
@@ -92,6 +94,46 @@ class productService {
       );
     });
     return true;
+  }
+
+  static async filter(filter) {
+    try {
+      const result = await products.findAll({
+        where: {
+          [Op.or]: [
+            {
+              title: {
+                [Op.like]: `%${filter}%`,
+              },
+            },
+            {
+              description: {
+                [Op.like]: `%${filter}%`,
+              },
+            },
+            {
+              brand: {
+                [Op.like]: `%${filter}%`,
+              },
+            },
+          ],
+        },include: [
+          {
+            model: categories,
+            as: "category",
+            attributes: ["name"],
+          },
+          {
+            model: images,
+            as: "images",
+          },
+        ],
+      });
+      return result;
+
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

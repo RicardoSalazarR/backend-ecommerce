@@ -4,6 +4,7 @@ const {
   postProduct,
   getById,
   getByCat,
+  filterP
 } = require("../controllers/products.controller");
 const authMiddleware = require('../middlewares/auth.middleware')
 
@@ -74,5 +75,6 @@ router.post("/",authMiddleware, postProduct);
 router.get('/:id',getById) //get a product by id
 
 router.get('/category/:id',getByCat) //get by category
+router.get('/filter/:filter',filterP)
 
 module.exports = router;

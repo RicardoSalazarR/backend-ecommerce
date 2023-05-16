@@ -46,9 +46,21 @@ const getByCat = async (req, res, next) => {
   }
 };
 
+const filterP = async(req,res,next)=>{
+  try {
+    const { filter } = req.params;
+    const result = await productsService.filter(filter); 
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getProducts,
   postProduct,
   getById,
   getByCat,
+  filterP,
 };
