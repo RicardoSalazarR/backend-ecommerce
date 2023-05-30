@@ -45,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
 *           example: 1
 */
 
+
 class cart extends Sequelize.Model {
   static init(sequelize, DataTypes) {
   return super.init({

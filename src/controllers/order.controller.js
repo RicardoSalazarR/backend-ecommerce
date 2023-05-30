@@ -13,7 +13,18 @@ const postOrder = async (req, res, next) => {
       totalPrice,
     } = await cartService.getCart(userId);
     const products = [];
-    const dataCart = { user_id: userId, totalPrice };
+
+    const fechaActual = new Date();
+    const ano = fechaActual.getFullYear();
+    const mes = fechaActual.getMonth() + 1;
+    const dia = fechaActual.getDate();
+
+    const fecha_creacion = `${ano}-${mes.toString().padStart(2, "0")}-${dia
+      .toString()
+      .padStart(2, "0")}`;
+
+
+    const dataCart = { user_id: userId, totalPrice,dateOf:fecha_creacion };
     if (productsInCart.length > 0) {
       const order = await orderService.createOrder(dataCart);
       productsInCart.forEach((product) => {

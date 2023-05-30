@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
   return products.init(sequelize, DataTypes);
 }
 
-
 /**
 * @openapi
 * components:
@@ -71,7 +70,7 @@ class products extends Sequelize.Model {
       primaryKey: true
     },
     title: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(150),
       allowNull: false
     },
     description: {

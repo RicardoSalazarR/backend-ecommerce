@@ -68,7 +68,7 @@ class users extends Sequelize.Model {
         },
         last_name: {
           type: DataTypes.STRING(30),
-          allowNull: false,
+          allowNull: true,
         },
         email: {
           type: DataTypes.STRING(30),
@@ -83,6 +83,10 @@ class users extends Sequelize.Model {
           type: DataTypes.STRING(10),
           allowNull: true,
           unique: "users_phone_key",
+        },
+        user_type: {
+          type: DataTypes.ENUM("cliente", "vendedor"),
+          allowNull: true,
         },
       },
       {

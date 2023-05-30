@@ -42,7 +42,7 @@ class cartService {
   static async changeTotal(price, total, cartId) {
     try {
       const totalPrice = total - price;
-      const result = cart.update({ totalPrice }, { where: { id: cartId } });
+      const result = await cart.update({ totalPrice }, { where: { id: cartId } });
       return result;
     } catch (error) {
       throw error;
@@ -51,7 +51,7 @@ class cartService {
 
   static async updateTotal(totalPrice, cartId) {
     try {
-      const result = cart.update({ totalPrice }, { where: { id: cartId } });
+      const result = await cart.update({ totalPrice }, { where: { id: cartId } });
       return result;
     } catch (error) {
       throw error;
@@ -84,7 +84,7 @@ class cartService {
 
   static async createCart(userId) {
     try {
-      const result = cart.create({ user_id: userId, totalPrice: 0 });
+      const result = await cart.create({ user_id: userId, totalPrice: 0 });
       return result;
     } catch (error) {
       throw error;

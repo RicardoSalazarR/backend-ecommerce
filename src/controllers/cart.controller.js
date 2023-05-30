@@ -37,7 +37,6 @@ const getCart = async (req, res, next) => {
     } else {
       next({ message: "something went wrong" });
     }
-    res.json(id);
   } catch (error) {
     next(error);
   }
@@ -78,7 +77,6 @@ const updateQty = async (req, res, next) => {
       for (const product of products) {
         newTotal += product.price * product.quantity;
       }
-      console.log(newTotal);
       const updated = await cartService.updateTotal(newTotal, cartId);
       if (updated) {
         res.status(200).json('Quantity updated successfull')

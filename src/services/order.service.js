@@ -30,7 +30,7 @@ class orderService {
 
   static async getOrders(userId) {
     try {
-      const result = order.findAll({
+      const result = await order.findAll({
         where: { user_id: userId },
         include: {
           model: products_in_order,

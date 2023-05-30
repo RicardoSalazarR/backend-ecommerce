@@ -73,7 +73,34 @@ class productService {
 
   static async create(product) {
     try {
+      // product.id = 17
       const result = await products.create(product);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async addImage(productId, image) {
+    try {
+      const data = { product_id: productId, url: image };
+      const allImages = await images.findAll()
+      data.id=allImages.length+1
+      const result = await images.create(data);
+      return result;
+    } catch (error) {
+      // console.log(error);
+      return false;
+    }
+  }
+
+  static async destroyProduct(productId) {
+    try {
+      const result = await images.destroy({ where: { product_id: productId } });
+      await products.destroy({ where: { id: productId } });
+      if (result) {
+        console.log("hola");
+      }
       return result;
     } catch (error) {
       throw error;
@@ -117,7 +144,8 @@ class productService {
               },
             },
           ],
-        },include: [
+        },
+        include: [
           {
             model: categories,
             as: "category",
@@ -130,11 +158,30 @@ class productService {
         ],
       });
       return result;
-
     } catch (error) {
       throw error;
     }
   }
+
+  static async updProduct(productId, data) {
+    try {
+      const result = await products.update(data, { where: { id: productId } });
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async deleteProduct(id){
+    try {
+      await images.destroy({where:{product_id:id}})
+      const result = await products.destroy({where:{id}})
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
 }
 
 module.exports = productService;

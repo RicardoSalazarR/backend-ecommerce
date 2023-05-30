@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
   return order.init(sequelize, DataTypes);
 }
 
-
 /**
 * @openapi
 * components:
@@ -72,6 +71,10 @@ class order extends Sequelize.Model {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false
+    },
+    dateOf: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
     }
   }, {
     sequelize,

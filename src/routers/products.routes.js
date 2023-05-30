@@ -4,9 +4,12 @@ const {
   postProduct,
   getById,
   getByCat,
-  filterP
+  filterP,
+  updProduct,
+  deleteOneProduct,
+  addImage
 } = require("../controllers/products.controller");
-const authMiddleware = require('../middlewares/auth.middleware')
+const authMiddleware = require("../middlewares/auth.middleware");
 
 const router = Router();
 
@@ -71,10 +74,12 @@ const router = Router();
 router.get("/", getProducts); //get all products
 //https://e-commerce-api-v2.academlo.tech/api/v1/products?title=samsung
 // filter name and category
-router.post("/",authMiddleware, postProduct);
-router.get('/:id',getById) //get a product by id
-
-router.get('/category/:id',getByCat) //get by category
-router.get('/filter/:filter',filterP)
+router.post("/", authMiddleware, postProduct);
+router.get("/:id", getById); //get a product by id
+router.put("/:id", updProduct);
+router.get("/category/:id", getByCat); //get by category
+router.get("/filter/:filter", filterP);
+router.delete('/:id',deleteOneProduct)
+router.post("/image",addImage)
 
 module.exports = router;

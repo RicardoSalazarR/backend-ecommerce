@@ -38,36 +38,36 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
   try {
     const { email, password } = req.body;
     if (!email) {
-      return res.status(400).json({
+      next({
         error: "Missing data",
         message: "Not email prooviided",
       });
     }
     if (!password) {
-      return res.status(400).json({
+      next({
         error: "Missing data",
         message: "Not password prooviided",
       });
     }
     const result = await AuthServices.login({ email, password });
     if (result.isValid) {
-      const { first_name, last_name, id, email } = result.user;
+      const { first_name, last_name, id, email,user_type } = result.user;
       const userName = `${first_name} ${last_name}`;
-      const userData = { id, userName, email };
+      const userData = { id, userName, email,user_type };
       const token = AuthServices.genToken(userData);
       userData.token = token;
       res.json(userData);
     } else if (result.error === "password") {
-      res.status(400).json({ message: "invalid password" });
+      next({ message: "invalid password" });
     } else {
-      res.status(400).json("user not found");
+      next("user not found");
     }
   } catch (error) {
-    res.status(400).json({ message: "something went wrong" });
+    next(error);
   }
 };
 

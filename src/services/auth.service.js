@@ -13,7 +13,14 @@ class AuthServices {
         password,
         phone,
       } = user;
-      const userData = {first_name,last_name,email,password,phone}
+      const userData = {
+        first_name,
+        last_name,
+        email,
+        password,
+        phone,
+        user_type: "cliente",
+      };
       const result = await users.create(userData);
       return result;
     } catch (error) {
